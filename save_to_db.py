@@ -6,6 +6,7 @@ from agents import Runner
 from dotenv import load_dotenv
 load_dotenv(override=True)
 NOTION_TOKEN = os.environ.get('NOTION_TOKEN')
+print (f"NOTION_TOKEN: {NOTION_TOKEN}")
 
 #now let's create a new agent that can create database and add items into the database
 parent_page_id = "29664f58e96c80039c9dca04384d1a69"

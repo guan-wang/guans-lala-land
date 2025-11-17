@@ -1,15 +1,15 @@
 from agents import Agent
 from pydantic import BaseModel
-import pandas as pd
+from datetime import datetime
 
 
-instructions1 = f""" You will act as a Korean language tutor with a persona tailored to an A2-level, enthusiastic learner.
-You will independently choose and curate three current articles that can be used for language learning. Choose interesting, diverse topics that would engage an A2-level learner. Use authentic and organic, recent online materials from top news websites.
-The current date is {pd.Timestamp.now().strftime('%Y-%m-%d')}.
-The structure of your output will be, for each article/topic: 1) provide a simplified summary in both Korean and English. 2) summarize the key language elements, i.e vocabulary, sentence structures, expressions. 3) provide a paired down paragraph that is suitable for A2-level learner """
+instructions1 = f""" You will act as a Korean language learning editor with a persona tailored to an B1-level, enthusiastic learner.
+You will independently choose and curate three articles that can be used for language learning. Choose current, and diverse topics that would engage an B1-level learner. Use authentic and organic, recent online materials from top news websites. Avoid general topics like street food, weather, and meeting friends. 
+The current date is {datetime.now().strftime('%Y-%m-%d')}.
+The structure of your output will be, for each article/topic: 1) provide a simplified summary in both Korean and English. 2) summarize the key language elements, i.e vocabulary, sentence structures, expressions. 3) provide a paired down paragraph that is suitable for B1-level learner """
 
-instructions2 = "You will act as a Korean language tutor with a persona tailored to an A2-level, enthusiastic learner. \
-You will independently choose a useful conversational topic that the learner can use to practice spoken Korean. The topic could be a real-life task that the learner can practice role-playing, or it could be a free talk conversation like talking about weekend plans. Choose a topic that would be practical and engaging for an A2-level learner. \
+instructions2 = "You will act as a Korean language tutor with a persona tailored to an B1-level, enthusiastic learner. \
+You will independently choose a useful conversational topic that the learner can use to practice spoken Korean. The topic could be a real-life task that the learner can practice role-playing, or it could be a free talk conversation like talking about weekend plans. Choose a topic that would be practical and engaging for an B1-level learner. \
 The structure of your output will be: topic name, a short description, key language covered such as vocabulary and sentence patterns, and a sample two-way dialogue. "
 
 tutor_article = Agent(
@@ -41,7 +41,7 @@ class SingleArticle(BaseModel):
     key_structures: list[str]
     key_expressions: list[str]
     simplified_paragraph: str
-    difficulty_level: str = "A2"
+    difficulty_level: str = "B1"
 
 class ArticleContent(BaseModel):
     articles: list[SingleArticle]
@@ -52,7 +52,7 @@ class ConversationContent(BaseModel):
     key_vocabulary: list[str]
     sentence_patterns: list[str]
     sample_dialogue: str
-    difficulty_level: str = "A2"
+    difficulty_level: str = "B1"
 
 #defining the lesson plan output model
 class LessonPlan(BaseModel):
@@ -62,7 +62,7 @@ class LessonPlan(BaseModel):
     conversation_content: ConversationContent
     
 
-lesson_instructions = """Your job is to generate a Korean language learning lesson plan for A2-level learners. 
+lesson_instructions = """Your job is to generate a Korean language learning lesson plan for B1-level learners. 
 
 LESSON STRUCTURE:
 - Part 1: Article-based learning (use article_tool)
@@ -85,7 +85,7 @@ Structure the final content into a LessonPlan object with:
 NOTE: The article topics and conversation topic are independently chosen by their respective tools and do not need to be related to each other.
 
 CONTENT VALIDATION:
-- Ensure all vocabulary and structures are appropriate for A2 level
+- Ensure all vocabulary and structures are appropriate for B1 level
 - If tool outputs are incomplete, use reasonable defaults or indicate missing information
 
 ERROR HANDLING:

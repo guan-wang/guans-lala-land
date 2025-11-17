@@ -86,7 +86,7 @@ async def main():
     5. Orchestrator hands off to send_digest_agent with LessonPlan
     6. send_digest_agent formats digest and emails it
     """
-    message = "Generate a Korean learning lesson with current topics, save items to my database, and email the lesson digest!"
+    message = "Generate a Korean learning lesson with the latest and greatest topics, save items to my database, and email the lesson digest!"
 
     with trace("Korean Learning Orchestrator"):
         result = await Runner.run(orchestrator_agent, message)

@@ -56,7 +56,7 @@ Date: {lesson_plan.created_date}
 • Grammar Structures: {', '.join(article.key_structures)}
 • Expressions: {', '.join(article.key_expressions)}
 
-✍️ Practice Text (A2 Level):
+✍️ Practice Text (B1 Level):
 {article.simplified_paragraph}
 
 ───────────────────────────────────────────────────────────
